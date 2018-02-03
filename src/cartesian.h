@@ -8,9 +8,9 @@
 #include <stdlib.h>
 
 struct Coordinate {
-    double x;
-    double y;
-    double z;
+  double x;
+  double y;
+  double z;
 };
 
 // Returns the distance between two cartesian coordinates
