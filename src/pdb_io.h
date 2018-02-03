@@ -15,6 +15,7 @@ struct Atom {
   unsigned int atom_number;
   std::string residue_name;
   std::string sequence_identifier;
+  std::string residue_id;
   Coordinate coordinate;
 };
 
