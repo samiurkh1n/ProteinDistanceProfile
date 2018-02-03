@@ -15,14 +15,14 @@ pdb_io.o: pdb_io.cpp
 cartesian.o: cartesian.cpp
 	g++ $(DBGFLAGS) -c cartesian.cpp
 
-protein_test: protein.o
-	g++ $(DBGFLAGS) protein.o pdb_io.o cartesian.o protein_test.cpp \
-			-o protein_test
+distance_profile_test: distance_profile.o
+	g++ $(DBGFLAGS) distance_profile.o pdb_io.o cartesian.o \
+		distance_profile_test.cpp -o protein_test
 
-protein.o: protein.cpp
-	g++ $(DBGFLAGS) -c protein.cpp
+distance_profile.o: distance_profile.cpp
+	g++ $(DBGFLAGS) -c distance_profile.cpp
 
 clean:
-	rm -f *.o pdb_io_test
+	rm -f *.o pdb_io_test distance_profile_test
 
 .PHONY: clean
