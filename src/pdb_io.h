@@ -12,10 +12,10 @@
 // Contains data about the atom of a protein including where it was physically
 //   and what residue it was part of.
 struct Atom {
-    unsigned int atom_number;
-    std::string residue_name;
-    std::string sequence_identifier;
-    Coordinate coordinate;
+  unsigned int atom_number;
+  std::string residue_name;
+  std::string sequence_identifier;
+  Coordinate coordinate;
 };
 
 // Constructs an Atom object from an "ATOM" record in a pdb file
