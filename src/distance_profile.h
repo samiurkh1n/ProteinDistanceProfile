@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-// Protein class
+// Protein Class
 // Gives utilities to construct a protein. Used by the distance profile object
 class Protein {
  public:
@@ -30,27 +30,34 @@ class Protein {
   std::vector<Atom> protein_;
 };
 
-// Distance Profile settings are used to control what type of distance profile
-// is generated for each protein.
-// You can manipulate this struct to experiment with the optimal parameter
-// set for constructing the protein profile
-struct DistanceProfileSettings {
-  std::vector<size_t> distances;
-  // TODO(samiurkh1n): Add more parameters
+// DistanceProfile Class
+class DistanceProfile {
+public:
+
+  // Distance Profile settings are used to control what type of distance profile
+  // is generated for each protein.
+  // You can manipulate this struct to experiment with the optimal parameter
+  // set for constructing the protein profile
+  struct DistanceProfileSettings {
+    std::vector<size_t> distances;
+    // TODO(samiurkh1n): Add more parameters
+  };
+
+  // Construct a distance profile for a set of proteins using the options
+  // specified in the options struct
+  DistanceProfile(std::vector<Protein> proteins, DistanceProfileSettings& opts);
+
+  // Display histogram
+  void DisplayDistanceProfileHistogram();
+private:
+  
+  struct AdjacentResidue {
+    int residue_a_id;
+    int residue_b_id;
+    double distance;
+  };
+
+  std::vector< std::vector<AdjacentResidue> > residue_table_;
 };
-
-struct AdjacentResidue {
-  int residue_a_id;
-  int residue_b_id;
-  double distance;
-};
-
-// Construct a distance profile for a set of proteins using the options
-// specified in the options struct
-std::vector<AdjacentResidue>
-DistanceProfile(std::vector<Protein> proteins, DistanceProfileSettings& opts);
-
-// Display histogram
-void DisplayDistanceProfileHistogram();
 
 #endif  // DISTANCE_PROFILE_H
