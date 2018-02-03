@@ -9,8 +9,11 @@ PROJECT = pdp
 pdb_io_test: pdb_io.o
 	g++ $(DBGFLAGS) pdb_io.o pdb_io_test.cpp -o pdb_io_test 
 
-%.o: %.cpp
-	g++ $(DBGFLAGS) -c $*.cpp
+pdb_io.o: pdb_io.cpp
+	g++ $(DBGFLAGS) -c pdb_io.cpp
+
+cartesian.o: cartesian.cpp
+	g++ $(DBGFLAGS) -c cartesian.cpp
 
 clean:
 	rm -f *.o pdb_io_test
