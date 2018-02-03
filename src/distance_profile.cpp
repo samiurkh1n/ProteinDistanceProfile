@@ -14,14 +14,15 @@ Protein::Protein(std::string file_name) {
     return;
   }
 
+  size_t last_backslash = file_name.find_last_of('/');
+  std::string protein_name = file_name.substr(last_backslash + 1);
+  name_ = protein_name.substr(0, protein_name.size() - 4);
+  
   std::string line;
-  while (std::getline(file_name, line)) {
+  while (std::getline(pdb_file, line)) {
     Atom a;
     if (!ParseAtomRecord(line, &a)) {
-      std::cerr << "Error reading protein\n";
-      std::cerr << "Line:\n";
-      std::cerr << "  " << line << std::endl;
-      return;
+      continue;
     }
     protein_.push_back(a);
   }

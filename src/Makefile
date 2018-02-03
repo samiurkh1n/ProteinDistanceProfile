@@ -15,9 +15,9 @@ pdb_io.o: pdb_io.cpp
 cartesian.o: cartesian.cpp
 	g++ $(DBGFLAGS) -c cartesian.cpp
 
-distance_profile_test: distance_profile.o
+distance_profile_test: distance_profile.o pdb_io.o cartesian.o
 	g++ $(DBGFLAGS) distance_profile.o pdb_io.o cartesian.o \
-		distance_profile_test.cpp -o protein_test
+		distance_profile_test.cpp -o distance_profile_test
 
 distance_profile.o: distance_profile.cpp
 	g++ $(DBGFLAGS) -c distance_profile.cpp

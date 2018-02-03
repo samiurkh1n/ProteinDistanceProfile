@@ -21,7 +21,12 @@ class Protein {
   //  is an error in reading the protein file.
   Protein(std::string file_name);
 
+  // Getters
+  std::string Name() { return name_; }
+  int AtomCount() { return protein_.size(); }
+  
  private:
+  std::string name_;
   std::vector<Atom> protein_;
 };
 

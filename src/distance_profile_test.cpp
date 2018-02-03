@@ -3,14 +3,18 @@
 
 #include <cassert>
 
-void test_filename_constructor();
+#include "distance_profile.h"
+
+void test_protein_filename_constructor();
 
 int main() {
-    test_filename_constructor();
+    test_protein_filename_constructor();
     return 0;
 }
 
 // Method to test that a protein file was properly read.
-void test_filename_constructor() {
-
+void test_protein_filename_constructor() {
+  Protein p("./test-data/1tpo.pdb");
+  assert(p.Name() == "1tpo");
+  assert(p.AtomCount() == 1629);
 }
