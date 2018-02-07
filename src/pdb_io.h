@@ -8,20 +8,11 @@
 
 #include <string>
 
-// Atom struct
-// Contains data about the atom of a protein including where it was physically
-//   and what residue it was part of.
-struct Atom {
-  unsigned int atom_number;
-  std::string residue_name;
-  std::string sequence_identifier;
-  std::string residue_id;
-  Coordinate coordinate;
-};
+typedef Coordinate AlphaCarbon;
 
-// Constructs an Atom object from an "ATOM" record in a pdb file
-// Stores it in the atom argument
-// Returns true if successful. Returns false on failure or error.
-bool ParseAtomRecord(std::string pdb_record_line, Atom* atom);
+// Reads in a record and creates an alpha carbon coordinate
+// Returns true if the record is a valid alpha carbon and
+// false if the record is empty or if it's not an ATOM record
+bool ParseCarbonAtomRecord(std::string pdb_record_line, AlphaCarbon* c);
 
 #endif  // PDB_IO_H
