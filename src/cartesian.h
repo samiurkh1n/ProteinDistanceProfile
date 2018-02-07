@@ -14,6 +14,6 @@ struct Coordinate {
 };
 
 // Returns the distance between two cartesian coordinates
-double distance(const Coordinate& first, const Coordinate& second);
+double CartesianDistance(const Coordinate& first, const Coordinate& second);
 
 #endif  // CARTESIAN_H

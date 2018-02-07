@@ -1,6 +1,6 @@
 #include "cartesian.h"
 
-double distance(const Coordinate& first, const Coordinate& second) {
+double CartesianDistance(const Coordinate& first, const Coordinate& second) {
   double diff_x = std::abs(first.x - second.x);
   double diff_y = std::abs(first.y - second.y);
   double diff_z = std::abs(first.z - second.z);
