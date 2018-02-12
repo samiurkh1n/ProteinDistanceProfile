@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <string>
 
 Protein::Protein(std::string file_name) {
   std::ifstream pdb_file;
@@ -32,28 +33,54 @@ DistanceProfile(const std::vector<Protein>& proteins,
 		const DistanceProfileSettings& opts) {
 
   residue_table_.resize(proteins.size());
+  for (size_t i = 0; i < residue_table_.size(); ++i) {
+    residue_table_[i].resize(opts.num_distances);
+  }
   
-  std::vector<size_t> residue_distances = opts.distances;
-  residue_distances_ = residue_distances;
+  for (size_t i = 0; i < opts.num_distances; ++i) {
+    residue_distances_.push_back(opts.distances[i]);
+  }
   
-  size_t distance = 0;
   for (size_t protein_i = 0; protein_i < proteins.size(); ++protein_i) {
-    // TODO(samiurkh1n): Don't copy an entire protein.
     Protein protein = proteins[protein_i];
     for (size_t i = 0; i < protein.ResidueCount(); ++i) {
-      for (size_t distance_i = 0; distance_i < residue_distances.size();
+      for (size_t distance_i = 0; distance_i < residue_distances_.size();
 	   ++distance_i) {
-	distance = residue_distances[distance_i];
-      
+	size_t distance = residue_distances_[distance_i];
 	if (i % distance == 0) {
 	  AdjacentResidue r;
 	  r.residue_a_id = i;
 	  r.residue_b_id = i + distance;
-	  r.distance = CartesianDistance
-	    (protein.GetResidue(i), protein.GetResidue(i + distance));
-	  residue_table_[protein_i].push_back(r);
+	  r.distance =
+	    CartesianDistance(protein.GetResidue(i),
+			      protein.GetResidue(i + distance));
+	  residue_table_[protein_i][distance_i].push_back(r);
 	}
       }
     }
+  }
+}
+
+void DistanceProfile::PrintDistanceProfile(std::string output_dir) {
+  for (size_t i = 0; i < NumProteins(); ++i) {
+    std::string output_path = output_dir;
+    output_path.append("pdp");
+    output_path.push_back(i);
+    std::ofstream pdp_out;
+    pdp_out.open(output_path.c_str());
+    if (!pdp_out.is_open()) {
+      std::cerr << "Error printing protein distance profile to file\n";
+      return;
+    }
+
+    for (size_t distance_i = 0; distance_i < residue_distances_.size();
+	 ++distance_i) {
+      for (size_t residue_i = 0;
+	   residue_i < residue_table_[i][distance_i].size(); ++residue_i) {
+	pdp_out << residue_distances_[distance_i] << " "
+		<< residue_table_[i][distance_i][residue_i].distance << "\n";
+      }
+    } 
+    pdp_out.close();
   }
 }

@@ -39,6 +39,7 @@ class Protein {
 // set for constructing the protein profile
 struct DistanceProfileSettings {
   std::vector<size_t> distances;
+  size_t num_distances;
 };
 
 // DistanceProfile Class
@@ -53,8 +54,8 @@ public:
   // Getters
   size_t NumProteins() { return residue_table_.size(); }
   
-  // Display histogram
-  void DisplayDistanceProfileHistogram();
+  // Prints histogram into a gnuplot servable format
+  void PrintDistanceProfile(std::string output_dir);
 private:
   
   struct AdjacentResidue {
@@ -63,7 +64,10 @@ private:
     double distance;
   };
 
-  std::vector< std::vector<AdjacentResidue> > residue_table_;
+  // Each column is reserved for on protein. Within each column, there
+  // is one column for each residue distance being recorded. Within each
+  // residue distance column, there is a vector of adjacent residue distance
+  std::vector<std::vector <std::vector<AdjacentResidue> > > residue_table_;
   std::vector<size_t> residue_distances_;
 };
 
