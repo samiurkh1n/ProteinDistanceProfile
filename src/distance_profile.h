@@ -23,30 +23,36 @@ class Protein {
 
   // Getters
   std::string Name() { return name_; }
-  int AtomCount() { return protein_.size(); }
+  size_t ResidueCount() { return protein_.size(); }
+  AlphaCarbon GetResidue(size_t i) { return protein_[i]; }
   
  private:
   std::string name_;
-  std::vector<Atom> protein_;
+
+  // protein_ is composed of residues, each residue containing a set of atoms
+  std::vector<AlphaCarbon> protein_;
+};
+
+// Distance Profile settings are used to control what type of distance profile
+// is generated for each protein.
+// You can manipulate this struct to experiment with the optimal parameter
+// set for constructing the protein profile
+struct DistanceProfileSettings {
+  std::vector<size_t> distances;
 };
 
 // DistanceProfile Class
 class DistanceProfile {
 public:
 
-  // Distance Profile settings are used to control what type of distance profile
-  // is generated for each protein.
-  // You can manipulate this struct to experiment with the optimal parameter
-  // set for constructing the protein profile
-  struct DistanceProfileSettings {
-    std::vector<size_t> distances;
-    // TODO(samiurkh1n): Add more parameters
-  };
-
   // Construct a distance profile for a set of proteins using the options
   // specified in the options struct
-  DistanceProfile(std::vector<Protein> proteins, DistanceProfileSettings& opts);
+  DistanceProfile(const std::vector<Protein>& proteins,
+		  const DistanceProfileSettings& opts);
 
+  // Getters
+  size_t NumProteins() { return residue_table_.size(); }
+  
   // Display histogram
   void DisplayDistanceProfileHistogram();
 private:
@@ -58,6 +64,7 @@ private:
   };
 
   std::vector< std::vector<AdjacentResidue> > residue_table_;
+  std::vector<size_t> residue_distances_;
 };
 
 #endif  // DISTANCE_PROFILE_H
