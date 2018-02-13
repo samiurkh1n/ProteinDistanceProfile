@@ -43,6 +43,7 @@ DistanceProfile(const std::vector<Protein>& proteins,
   
   for (size_t protein_i = 0; protein_i < proteins.size(); ++protein_i) {
     Protein protein = proteins[protein_i];
+    protein_names_.push_back(protein.Name());
     for (size_t i = 0; i < protein.ResidueCount(); ++i) {
       for (size_t distance_i = 0; distance_i < residue_distances_.size();
 	   ++distance_i) {
@@ -62,10 +63,10 @@ DistanceProfile(const std::vector<Protein>& proteins,
 }
 
 void DistanceProfile::PrintDistanceProfile(std::string output_dir) {
-  for (size_t i = 0; i < NumProteins(); ++i) {
+  for (int i = 0; i < NumProteins(); ++i) {
     std::string output_path = output_dir;
-    output_path.append("pdp");
-    output_path.push_back(i);
+    output_path.append(protein_names_[i]);
+    output_path.append(".pdp");
     std::ofstream pdp_out;
     pdp_out.open(output_path.c_str());
     if (!pdp_out.is_open()) {

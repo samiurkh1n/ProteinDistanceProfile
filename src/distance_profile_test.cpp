@@ -41,8 +41,8 @@ void test_distance_profile_printing() {
   Protein p2("./test-data/1p3c.pdb");
   Protein p3("./test-data/1ndh.pdb");
   std::vector<Protein> proteins;
-  //proteins.push_back(p);
-  //proteins.push_back(p2);
+  proteins.push_back(p);
+  proteins.push_back(p2);
   proteins.push_back(p3);
   DistanceProfileSettings d;
   d.distances.push_back(6);

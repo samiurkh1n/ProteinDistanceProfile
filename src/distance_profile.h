@@ -52,7 +52,7 @@ public:
 		  const DistanceProfileSettings& opts);
 
   // Getters
-  size_t NumProteins() { return residue_table_.size(); }
+  int NumProteins() { return residue_table_.size(); }
   
   // Prints histogram into a gnuplot servable format
   void PrintDistanceProfile(std::string output_dir);
@@ -69,6 +69,7 @@ private:
   // residue distance column, there is a vector of adjacent residue distance
   std::vector<std::vector <std::vector<AdjacentResidue> > > residue_table_;
   std::vector<size_t> residue_distances_;
+  std::vector<std::string> protein_names_;
 };
 
 #endif  // DISTANCE_PROFILE_H
